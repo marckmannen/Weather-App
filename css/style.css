@@ -1,3 +1,7 @@
 body {
   background-color: lightblue;
 }
+
+.selected_regio {
+  font-family: Teko;
+}

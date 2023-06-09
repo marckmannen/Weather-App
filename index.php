@@ -1,3 +1,8 @@
+<?php
+include './inc/header.php';
+include 'dataprocessing.php';
+
+?>
 <!DOCTYPE html>
 <html lang="nl">
 
@@ -6,14 +11,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./css/style.css" type="text/css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <script src="./js/script.js"></script>
     <title>Weather App</title>
 </head>
 
 <body>
 <h1>Weather App</h1>
-<form id="weatherForm" action="dataprocessing.php" method="POST">
-        <input type="hidden" name="action" value="regioKeuze">
+<!-- <form id="weatherForm" action="dataprocessing.php" method="POST">
+        <input type="hidden" name="action" value="regioKeuze"> -->
 
         <label for="regio">Kies een regio:</label>
         <select id="regio" name="regio">
@@ -30,7 +38,7 @@
             <option value="Zeeland">Zeeland</option>
             <option value="Limburg">Limburg</option>
         </select>
-    </form>
+    <!-- </form> -->
 <script>
         const selectElement = document.getElementById('regio');
         const storedValue = localStorage.getItem('selectedRegio');
@@ -48,5 +56,5 @@
 </script>
 
 </body>
-
+<?php include './inc/footer.php'?>
 </html>
