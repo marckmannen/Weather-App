@@ -12,10 +12,10 @@
 
 <body>
 <h1>Weather App</h1>
-<form action="dataprocessing.php" method="POST">
-    <input type="hidden" name="action" value="regioKeuze">
+<form id="weatherForm" action="dataprocessing.php" method="POST">
+        <input type="hidden" name="action" value="regioKeuze">
 
-    <label for="regio">Kies een regio:</label>
+        <label for="regio">Kies een regio:</label>
         <select id="regio" name="regio">
             <option value="Noord-Holland">Noord-Holland</option>
             <option value="Zuid-Holland">Zuid-Holland</option>
@@ -29,8 +29,18 @@
             <option value="Drenthe">Drenthe</option>
             <option value="Zeeland">Zeeland</option>
             <option value="Limburg">Limburg</option>
-    </select>
-</form>
+        </select>
+    </form>
+<script>
+        const selectElement = document.getElementById('regio');
+        selectElement.addEventListener('change', () => {
+            const selectedValue = selectElement.value;
+            const baseUrl = window.location.href.split('?')[0]; // Remove existing query parameters if any
+            const newUrl = `${baseUrl}?regio=${encodeURIComponent(selectedValue)}`;
+            window.location.href = newUrl;
+        });
+</script>
+
 </body>
 
 </html>
