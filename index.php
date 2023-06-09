@@ -1,6 +1,5 @@
 <?php
 include './inc/header.php';
-include 'dataprocessing.php';
 ?>
 
 <body>
