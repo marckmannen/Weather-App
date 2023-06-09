@@ -1,0 +1,16 @@
+body {
+  background-color: pink;
+}
+
+#blok1 {
+  background-color: red;
+}
+#blok1 #para {
+  color: yellow;
+}
+
+#blok2 {
+  background-color: blue;
+}
+
+/*# sourceMappingURL=style.css.map */
