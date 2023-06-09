@@ -1,60 +1,56 @@
 <?php
 include './inc/header.php';
 include 'dataprocessing.php';
-
 ?>
-<!DOCTYPE html>
-<html lang="nl">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="./css/style.css" type="text/css">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Teko:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <script src="./js/script.js"></script>
-    <title>Weather App</title>
-</head>
 
 <body>
-<h1>Weather App</h1>
-<!-- <form id="weatherForm" action="dataprocessing.php" method="POST">
-        <input type="hidden" name="action" value="regioKeuze"> -->
+    <div class="hoofdcontainer"><div class="pagecontent">
+<h1 class="title">Weather App</h1>
+    <form action="" method="GET">
+        <div class="input-container">
+        <b><h2><label for="regio">Type hier de plaats:</label>
+        <input class="inputveld" name="regio" type="text" placeholder="Type hier uw plaats"></h2></b>
+    </div>
+    </form>
 
-        <label for="regio">Kies een regio:</label>
-        <select id="regio" name="regio">
-            <option value="Noord-Holland">Noord-Holland</option>
-            <option value="Zuid-Holland">Zuid-Holland</option>
-            <option value="Noord-Brabant">Noord-Brabant</option>
-            <option value="Gelderland">Gelderland</option>
-            <option value="Overijssel">Overijssel</option>
-            <option value="Flevoland">Flevoland</option>
-            <option value="Utrecht">Utrecht</option>
-            <option value="Groningen">Groningen</option>
-            <option value="Friesland">Friesland</option>
-            <option value="Drenthe">Drenthe</option>
-            <option value="Zeeland">Zeeland</option>
-            <option value="Limburg">Limburg</option>
-        </select>
-    <!-- </form> -->
-<script>
-        const selectElement = document.getElementById('regio');
-        const storedValue = localStorage.getItem('selectedRegio');
-        if (storedValue) {
-            selectElement.value = storedValue;
+<?php
+$regio = isset($_GET["regio"]) ? ucfirst($_GET["regio"]) : "Nog niks...";
+
+echo "<div class='selected_regio'>De geselecteerde plaats: $regio<div>";
+
+
+if (isset($_GET['regio'])) {
+    $selectedRegio = $_GET['regio'];
+    $apiUrl = "https://weerlive.nl/api/json-data-10min.php?key=78d573e1e2&locatie=" . $regio;
+
+    // Haal de weergegevens op van de API
+    $weatherData = file_get_contents($apiUrl);
+
+    if ($weatherData !== false) {
+        $weatherData = json_decode($weatherData, true);
+
+        // Controleer of de weergegevens succesvol zijn opgehaald
+        if (isset($weatherData)) {
+            $naam = ucwords($weatherData['liveweer'][0]['plaats']);
+            $temperatuur = $weatherData['liveweer'][0]['temp'];
+            $beschrijving = $weatherData['liveweer'][0]['samenv'];
+            $verwachting = lcfirst($weatherData['liveweer'][0]['verw']);
+
+
+            // Toon het weer op de pagina
+            echo "<h2>In $naam is het nu $temperatuur °C</h2>";
+            echo "<p>$beschrijving, $verwachting</p>";
+        } else {
+            echo "Er is een probleem opgetreden bij het ophalen van de weergegevens.";
         }
+    } else {
+        echo "Er is een probleem opgetreden bij het ophalen van de weergegevens.";
+    }
+}
 
-        selectElement.addEventListener('change', () => {
-            const selectedValue = selectElement.value;
-            localStorage.setItem('selectedRegio', selectedValue);
-            const baseUrl = window.location.href.split('?')[0]; // Remove existing query parameters if any
-            const newUrl = `${baseUrl}?regio=${encodeURIComponent(selectedValue)}`;
-            window.location.href = newUrl;
-        });
-</script>
 
-</body>
+?>
+
+</div>
+
 <?php include './inc/footer.php'?>
-</html>

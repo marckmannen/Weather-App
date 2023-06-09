@@ -1,7 +1,54 @@
+html {
+  margin: 0px;
+  padding: 0px;
+}
 body {
   background-color: lightblue;
+  text-align: center;
+    align-items: center;
 }
 
+h2 {
+  font-family: teko;
+  font-size: 40px;
+}
+
+.inputveld {
+  width: 200px;
+  padding: 20px;
+  margin-left: 40px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  resize: vertical;
+}
+
+.input-container {
+  align-items: center;
+}
+
+.hoofdcontainer {
+  display: block;
+  justify-content: center;
+}
 .selected_regio {
-  font-family: Teko;
+  font-size: 50px;
+    font-family: teko;
+  }
+  
+  .title {
+    font-family: teko;
+    font-size: 100px;
+    letter-spacing: 20px;
+  }
+  
+  .footertekst {
+    font-size: 30px;
+  }
+  
+  footer {
+    position: absolute;
+    left: 0px;
+    background-color: #81e0ff;
+    width: 100%;
+    bottom: 0px;
 }
